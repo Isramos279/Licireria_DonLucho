@@ -1,4 +1,46 @@
+<?php 
+require_once "../conexion/conexion.php";
 
+
+if (empty($_POST['usuario'])) {
+  // echo "vacio";
+  //echo "<script type='text/javascript' >alert('llene los datos');</script>";
+}else{
+    $nombre=$_POST['nombre'];
+    $apellido=$_POST['apellido'];
+    $usuario=$_POST['usuario'];
+    $contrasenia=$_POST['contrasenia'];
+    //datos de la tabla contacto
+    $nombrecont=$_POST['nombrecont'];
+    $descripcion=$_POST['descripcion'];
+    //dato quemado nivel USUARIO 
+    $nivel=1;
+    // ingresar Contacto para vendedor
+    $query="INSERT INTO contacto VALUES (Default,'$nombrecont','$descripcion')";
+    $resultado = $conexion->query($query);
+    //Consultar ultimo Contacto ingresado
+    $ultimo = "SELECT MAX(id_contacto) AS id FROM contacto";
+    $result = $conexion->query($ultimo);
+
+    $fila =  mysqli_fetch_row($result);
+    $ultimoidtipo =$fila[0];
+    
+    //Ingresar PERSONA
+    $query = "INSERT INTO PERSONA Values(Default,'$usuario','$contrasenia','$nombre','$apellido','$nivel','$ultimoidtipo')";
+    $ingreso = $conexion->query($query);
+
+    
+
+    if ($ingreso && $resultado ) {
+      echo "<script type='text/javascript' >alert('datos guardados');</script>";
+      echo "<script >setTimeout(\"location.href='inicio.php'\")</script>";
+
+    }else{
+      echo "<script type='text/javascript' >alert('datos no guardados');</script>";
+      echo "<script >setTimeout(\"location.href='inicio.php'\")</script>";
+    }
+} 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
