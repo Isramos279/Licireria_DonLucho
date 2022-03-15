@@ -1,0 +1,48 @@
+drop database if EXISTS donlucho;
+Create database donlucho;
+
+use donlucho;
+create table CONTACTO
+(
+    id_contacto int auto_increment primary key not null,
+    nombrecont varchar(50) not null,
+    descripcion varchar(50) not null
+);
+create table PERSONA
+(
+    id_persona int auto_increment primary key not null,
+    usuario varchar(50) not null,
+    contrasenia varchar(50) not null,
+    nombre varchar(200) not null,
+	apellido varchar(200) not null,
+	nivel int not null,
+	id_contacto int not null,
+foreign key(id_contacto) references CONTACTO(id_contacto)
+);
+create table TIPO
+(
+    id_tipo int auto_increment primary key not null,
+    nombre varchar(200) not null
+);
+create table PRODUCTO
+(
+    id_producto int auto_increment primary key not null,
+    codigobarras varchar(200) not null,
+    nombre varchar(200) not null,
+    marca varchar(100) not null,
+    contenido float not null,
+	precio float not null,
+	stok int not null,
+	id_tipo int not null,
+	foto longblob not null,
+foreign key(id_tipo) references TIPO(id_tipo)
+);
+create table PRODUCTO_PERSONA
+(
+    id_producto_usuario int auto_increment primary key not null,
+    id_producto int not null,
+    id_persona int not null,
+    fecha date not null,
+foreign key(id_producto) references PRODUCTO(id_producto),
+foreign key(id_persona) references PERSONA(id_persona)
+);
