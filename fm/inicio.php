@@ -1,4 +1,15 @@
 
+<?php
+  if(isset($_GET['id'])){
+    $id_persona=$_GET['id'];
+  }
+    if(isset($_GET['u'])){
+    $usuario=$_GET['u'];
+  }
+    //Arreglo de id de productos ecogidos 
+    $id_producto=0;
+    $productos=array();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,38 +24,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>    
+    <LINK REL=StyleSheet HREF="../css/misEstilos.css" TYPE="text/css" MEDIA=screen>
 </head>
 <body>
 <header>
   <nav class="navbar navbar-dark bg-dark ">
     <div class="container-md">    
+
       <a class="navbar-brand" href="inicio.php"> Licoreria Don Lucho</a>
-      <a class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php"> Admin</a>
-      <a class="nav-link bi bi-cart3" style="color: white;" href="compras.php"> Compras</a>
-      <a class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php"> Ingresar Vendedor</a>
+      <a id="productos" class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php"> Productos</a>
+      <a id="vendedor" class="nav-link bi bi-cart3" style="color: white;" href="compras.php"> Compras</a>
+      <a id="nuvoVendedor" class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php"> Ingresar Vendedor</a>
       <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php"> Sobre nosotros</a>
+      <a class="nav-link bi bi-box-arrow-right" style="color: white;" href="../index.php"> Salir</a>
     </div>
   </nav>
 </header>
 
 <!-- CARUSEL
   ================================================== -->
+  <form hidden>
+    <input id="id_persona" name="id_persona" value="<?php echo $id_persona ?>">
+    <input id="usuario" name="usuario" value="<?php echo $usuario ?>">
+  </form>
 <div class="container-fluid">
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -89,18 +91,25 @@
        ?>
        <div class="card">
         <img src="data:imge/jpg;base64, <?php echo base64_encode($row['foto']); ?>">
-        <h4><?php echo $row['nombre']; ?></h4>
-        <p><?php echo $row['contenido']; ?></p>  
+          <div class="card-body">
+            <h4><?php echo $row['nombre']; ?></h4>
+            <p><?php echo "Contenido: ".$row['contenido']. "ml"; ?></p> 
+            <p><?php echo "Precio: ".$row['precio']. "$"; ?></p> 
+            <input type="checkbox" class="checBoxProducto"><label>Lo quiero!</label>
+            <input type="text" id="id_producto" value="<?php echo $row['id_producto']; ?>" hidden>
+          </div>
        </div>
        <?php
      } 
   ?>
-  <!-- <div class="row">
-    <div class="col-1">Column</div>
-    <div class="col-5">Column</div>
-  </div> -->
-</div>
 
+<form id="fm_productos" method="POST" action="producto_persona.php" hidden>
+  <input id="compra_id_persona" name="id_persona" value="<?php echo $id_persona ?>">
+  <input id="compra_id_producto" name="id_producto">
+  <input id="compra_btn_producto" type="submit" value="enviar" >
+</form>
+</div>
+<a id="btn_comprar" class="btn-flotante">Realizar pedido</a>
 
 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); ">
   © 2022 Copyright:
@@ -110,4 +119,11 @@
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+<footer>
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!--MIS SCRIPTS-->
+      <script src="../js/inicio.js"></script>
+</footer>
 </html>

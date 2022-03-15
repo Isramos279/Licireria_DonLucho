@@ -7,30 +7,28 @@ if (empty($_POST['usuario'])) {
   // echo "vacio";
   //echo "<script type='text/javascript' >alert('llene los datos');</script>";
 }else{
+  if(isset($_GET['id'])){
+    $id_persona=$_GET['id'];
+  }
   $usuario=$_POST['usuario'];
   $contrasenia=$_POST['contrasenia'];
   $_SESSION['usuario']=$usuario;
-
-
-  //
-  // $ultimo = "SELECT MAX(id_tipo) AS id FROM TIPO";
-  // $result = $conexion->query($ultimo);
-
-  // $fila =  mysqli_fetch_row($result);
-  // $ultimoidtipo =$fila[0];
 
   // Consultar ultimo tipo ingresado
   $query = "SELECT * FROM  persona  WHERE usuario='$usuario' and contrasenia ='$contrasenia'";
   //correr qu
   $resultado = $conexion->query($query);
-
-  $fila =  mysqli_fetch_row($resultado);
+  while ($row = $resultado->fetch_assoc()) 
+  {
+      $id_persona=$row['id_persona'];
+      $usuario=$row['usuario'];
+  } 
   $var =1;
 
   //echo "$var";
 
-  if ($fila) {
-    header("location: fm/inicio.php");
+  if ($id_persona) {
+    header("location: fm/inicio.php?id=".$id_persona."&"."u=".$usuario);
   }else{
     echo "<script type='text/javascript' >alert('datos incorrec');</script>";
 

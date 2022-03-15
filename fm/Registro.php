@@ -1,6 +1,7 @@
 <?php 
   require_once "../conexion/conexion.php";
   // session_start();
+  $id_persona=0;
   if (empty($_POST['nombre'])) {
     echo "ingrese datos";
   }else{
@@ -35,12 +36,12 @@
     //Ingresar PERSONA
     $query = "INSERT INTO PERSONA Values(Default,'$usuario','$contrasenia','$nombre','$apellido','$nivel','$ultimoidtipo')";
     $ingreso = $conexion->query($query);
-
+    $id_persona=mysqli_insert_id($conexion);
     
 
     if ($ingreso && $resultado ) {
       echo "<script type='text/javascript' >alert('datos guardados');</script>";
-      echo "<script >setTimeout(\"location.href='../index.php'\")</script>";
+      Header("Location: ../index.php?id=".$id_persona);
 
     }else{
       echo "<script type='text/javascript' >alert('datos no guardados');</script>";
