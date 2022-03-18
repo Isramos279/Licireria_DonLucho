@@ -1,3 +1,11 @@
+<?php
+    if(isset($_GET['id_persona'])){
+    $id_persona=$_GET['id_persona'];
+  }
+  if(isset($_GET['nivel'])){
+    $nivel=$_GET['nivel'];
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +39,17 @@
 <header>
   <nav class="navbar navbar-dark bg-dark ">
     <div class="container-md">    
-      <a class="navbar-brand" href="inicio.php"> Licoreria Don Lucho</a>
-      <a class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php"> Licores</a>
-      <a class="nav-link bi bi-cart3" style="color: white;" href="compras.php"> Compras</a>
-      <a class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php"> Ingresar Vendedor</a>
-      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php"> Sobre nosotros</a>
+      
+      <a class="navbar-brand" href="inicio.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Licoreria Don Lucho</a>
+
+      <a id="productos" class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Productos</a>
+
+      <a id="vendedor" class="nav-link bi bi-cart3" style="color: white;" href="compras.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Compras</a>
+
+      <a id="nuvoVendedor" class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Ingresar Vendedor</a>
+
+      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Sobre nosotros</a>
+      <a class="nav-link bi bi-box-arrow-right" style="color: white;" href="../index.php"> Salir</a>
     </div>
   </nav>
 </header>
@@ -56,7 +70,27 @@
               <p class="lead mb-4">Mantener posicionamiento en el mercado como una empresa sólida y competitiva en nuestra actividad comercial.</p>
             </div>
         </div>
+
     </div>
+    <div class="row">
+    <div class="col-3">
+      
+    </div>
+    <div class="col">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.1308664206817!2d-78.65964228569378!3d-1.6664501987848146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d3078a0f0218b3%3A0x4c27e4c2480f0705!2sLicores%20Don%20Paco!5e0!3m2!1ses!2sec!4v1647414720375!5m2!1ses!2sec" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+    </div>
+  </div>
+  <div class="px-4  my-5 text-center">            
+            <h1 class="display-5 fw-bold">Para contactos:</h1>
+            <div class="col-lg-6 mx-auto">
+              <p class="lead mb-4">Celular: (+593)987654321</p>
+              <p class="lead mb-4">Teléfono:(032)2230210</p>
+              <p class="lead mb-4">Facebook: facebook.con/licreriadonlucho</p>
+              <p class="lead mb-4">Correo: atencioncliente@donlucho.com</p>
+            </div>
+        </div>
+  
 </div>
 
 
@@ -64,7 +98,7 @@
 <!-- Copyright -->
 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); ">
   © 2022 Copyright:
-  <a class="text-reset fw-bold" href="inicio.php">DonLuchoLicor.com</a>
+  <a class="text-reset fw-bold" href="">DonLuchoLicor.com</a>
 </div>
 <!-- Copyright -->
 

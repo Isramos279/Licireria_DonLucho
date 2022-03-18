@@ -1,3 +1,11 @@
+<?php
+    if(isset($_GET['id_persona'])){
+    $id_persona=$_GET['id_persona'];
+  }
+  if(isset($_GET['nivel'])){
+    $nivel=$_GET['nivel'];
+  }
+?>
 <?php 
 require_once "../conexion/conexion.php";
 
@@ -33,11 +41,11 @@ if (empty($_POST['usuario'])) {
 
     if ($ingreso && $resultado ) {
       echo "<script type='text/javascript' >alert('datos guardados');</script>";
-      echo "<script >setTimeout(\"location.href='inicio.php'\")</script>";
+      echo "<script >setTimeout(\"location.href='inicio.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>'\")</script>";
 
     }else{
       echo "<script type='text/javascript' >alert('datos no guardados');</script>";
-      echo "<script >setTimeout(\"location.href='inicio.php'\")</script>";
+      echo "<script >setTimeout(\"location.href='inicio.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>'\")</script>";
     }
 } 
  ?>
@@ -61,16 +69,22 @@ if (empty($_POST['usuario'])) {
   <header>
     <nav class="navbar navbar-dark bg-dark ">
       <div class="container-md">    
-        <a class="navbar-brand" href="inicio.php"> Licoreria Don Lucho</a>
-        <a class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php"> Admin</a>
-        <a class="nav-link bi bi-cart3" style="color: white;" href="compras.php"> Compras</a>
-        <a class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php"> Ingresar Vendedor</a>
-        <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php"> Sobre nosotros</a>
+
+      <a class="navbar-brand" href="inicio.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Licoreria Don Lucho</a>
+
+      <a id="productos" class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Productos</a>
+
+      <a id="vendedor" class="nav-link bi bi-cart3" style="color: white;" href="compras.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Compras</a>
+
+      <a id="nuvoVendedor" class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Ingresar Vendedor</a>
+
+      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Sobre nosotros</a>
+      <a class="nav-link bi bi-box-arrow-right" style="color: white;" href="../index.php"> Salir</a>
       </div>
     </nav>
   </header>
 
-<h1>Ingresar vendedor</h1>
+<h1>Formulario de vendedor</h1>
 <div class="container-fluit">
       <div class="row">
         <div class="col-1"></div>
@@ -81,25 +95,25 @@ if (empty($_POST['usuario'])) {
                 <div class="col-2"></div>
                 <div class="col-8">
                   <label for="formGroupExampleInput" class="form-label">Ingrese Nombre</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="nombre">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="nombre" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8 ">
                   <label for="formGroupExampleInput" class="form-label">Ingrese Apellido</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="apellido">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="apellido" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-2"></div>
                 <div class="col-4">
                     <label for="formGroupExampleInput" class="form-label">Ingrese Usuario</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="usuario">
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="usuario" required>
                 </div>
                 <div class="col-4">
                     <label for="formGroupExampleInput" class="form-label">Ingrese Contraseña</label>
-                    <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="contrasenia">
+                    <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="contrasenia" required>
                     <br>
                 </div>
               </div>
@@ -111,15 +125,15 @@ if (empty($_POST['usuario'])) {
                 <div class="col-2"></div>
                 <div class="col-1 "></div>
                 <div class="col-4">
-                    <label for="formGroupExampleInput" class="form-label">Ingrese numero</label>
-                    <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="nombrecont">
+                    <label for="formGroupExampleInput" class="form-label">Numero de contacto</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="nombrecont" required>
                 </div>
                 
                 <div class="col-2 ">
                   <label for="formGroupExampleInput" class="form-label">Tipo</label>
                     <label for="formGroupExampleInput" class="form-label"></label>
-                    <select class="form-select" aria-label="Default select example" name="descripcion">
-                    <option selected>Tipo</option>
+                    <select class="form-select" aria-label="Default select example" name="descripcion" required>
+                    <option selected></option>
                     <option value="1">Celular</option>
                     <option value="2">Teléfono</option>
                   </select>
@@ -133,7 +147,7 @@ if (empty($_POST['usuario'])) {
               <div class="row">
                 <div class="col"></div>
                 <div class="col">
-                  <a type="button" class="btn btn-dark" href="../index.php">Regresar</a>
+
                 </div>
                 <div class="col">
                   <button class="btn btn-dark" type="submit">Guardar</button>
@@ -148,7 +162,7 @@ if (empty($_POST['usuario'])) {
       
 </div>
 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); ">© 2022 Copyright:
-  <a class="text-reset fw-bold" href="inicio.html">DonLuchoLicor.com</a>
+  <a class="text-reset fw-bold" href="">DonLuchoLicor.com</a>
 </div>
 
 

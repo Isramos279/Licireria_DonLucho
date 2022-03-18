@@ -1,3 +1,11 @@
+<?php
+    if(isset($_GET['id_persona'])){
+    $id_persona=$_GET['id_persona'];
+  }
+  if(isset($_GET['nivel'])){
+    $nivel=$_GET['nivel'];
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,23 +39,54 @@
 <header>
   <nav class="navbar navbar-dark bg-dark ">
     <div class="container-md">    
-      <a class="navbar-brand" href="inicio.php"> Licoreria Don Lucho</a>
-      <a class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php"> Licores</a>
-      <a class="nav-link bi bi-cart3" style="color: white;" href="compras.php"> Compras</a>
-      <a class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php"> Ingresar Vendedor</a>
-      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php"> Sobre nosotros</a>
+    
+      <a class="navbar-brand" href="inicio.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Licoreria Don Lucho</a>
+
+      <a id="productos" class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Productos</a>
+
+      <a id="vendedor" class="nav-link bi bi-cart3" style="color: white;" href="compras.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Compras</a>
+
+      <a id="nuvoVendedor" class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Ingresar Vendedor</a>
+
+      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Sobre nosotros</a>
+      <a class="nav-link bi bi-box-arrow-right" style="color: white;" href="../index.php"> Salir</a>
     </div>
   </nav>
 </header>
 
 
 <!------ --->
-  
+  <div class="container">
+    <?php
+        include ("../conexion/conexion.php");
+        //session_start();
+        $query = 'SELECT p.nombre,p.apellido,pd.nombre as producto ,pp.fecha FROM persona as p INNER JOIN producto_persona as pp ON p.id_persona = pp.id_persona INNER JOIN producto as pd on pd.id_producto=pp.id_producto;';
+        
+        $resultado = $conexion->query($query);
+        //print($result);
+        echo "<table class='table'>\n";
+        echo "<thead'>\n";
+            echo "<th scope='col'>Nombre</th>\n";
+            echo "<th scope='col'>Apellido</th>\n";
+            echo "<th scope='col'>Producto</th>\n";
+            echo "<th scope='col'>Fecha</th>\n";
+        echo "</thead'>\n";
+
+        while ($row = $resultado->fetch_assoc()) {
+            echo "\t<tr>\n";
+            foreach ($row as $col_value) {
+                echo "\t\t<td>$col_value</td>\n";
+            }
+            echo "\t</tr>\n";
+        }
+        echo "</table>\n";
+    ?>
+  </div>
 <!---  ---->
 <!-- Copyright -->
 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); ">
   © 2022 Copyright:
-  <a class="text-reset fw-bold" href="inicio.html">DonLuchoLicor.com</a>
+  <a class="text-reset fw-bold" href="">DonLuchoLicor.com</a>
 </div>
 <!-- Copyright -->
 

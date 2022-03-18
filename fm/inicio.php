@@ -1,14 +1,20 @@
 
 <?php
-  if(isset($_GET['id'])){
-    $id_persona=$_GET['id'];
+
+    if(isset($_GET['usuario'])){
+    $usuario=$_GET['usuario'];
   }
-    if(isset($_GET['u'])){
-    $usuario=$_GET['u'];
+    if(isset($_GET['id_persona'])){
+    $id_persona=$_GET['id_persona'];
+  }
+  if(isset($_GET['nivel'])){
+    $nivel=$_GET['nivel'];
   }
     //Arreglo de id de productos ecogidos 
     $id_producto=0;
     $productos=array();
+    //---------
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +37,16 @@
   <nav class="navbar navbar-dark bg-dark ">
     <div class="container-md">    
 
-      <a class="navbar-brand" href="inicio.php"> Licoreria Don Lucho</a>
-      <a id="productos" class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php"> Productos</a>
-      <a id="vendedor" class="nav-link bi bi-cart3" style="color: white;" href="compras.php"> Compras</a>
-      <a id="nuvoVendedor" class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php"> Ingresar Vendedor</a>
-      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php"> Sobre nosotros</a>
+      <a class="navbar-brand" href="inicio.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Licoreria Don Lucho</a>
+
+      <a id="productos" class="nav-link bi bi-cup-straw" style="color: white;" href="licores.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Productos</a>
+
+      <a id="vendedor" class="nav-link bi bi-cart3" style="color: white;" href="compras.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Compras</a>
+
+      <a id="nuvoVendedor" class="nav-link bi bi-cart3" style="color: white;" href="vendedor.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>" <?php if($nivel<1) { echo "hidden";}?>> Ingresar Vendedor</a>
+
+      <a class="nav-link bi bi-info-circle" style="color: white;" href="nosotros.php?id_persona=<?php echo $id_persona ?>&nivel=<?php echo $nivel?>"> Sobre nosotros</a>
+
       <a class="nav-link bi bi-box-arrow-right" style="color: white;" href="../index.php"> Salir</a>
     </div>
   </nav>
@@ -43,10 +54,7 @@
 
 <!-- CARUSEL
   ================================================== -->
-  <form hidden>
-    <input id="id_persona" name="id_persona" value="<?php echo $id_persona ?>">
-    <input id="usuario" name="usuario" value="<?php echo $usuario ?>">
-  </form>
+
 <div class="container-fluid">
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -84,7 +92,7 @@
 <div class="container">
   <?php 
   include("../conexion/conexion.php");
-    $query = "SELECT * FROM producto";
+    $query = "SELECT * FROM producto WHERE stok>=1";
     $resultado =$conexion->query($query);
 
     while ($row = $resultado->fetch_assoc()) {
@@ -95,7 +103,8 @@
             <h4><?php echo $row['nombre']; ?></h4>
             <p><?php echo "Contenido: ".$row['contenido']. "ml"; ?></p> 
             <p><?php echo "Precio: ".$row['precio']. "$"; ?></p> 
-            <input type="checkbox" class="checBoxProducto"><label>Lo quiero!</label>
+            <label>Cantidad diponible: <?php echo $row['stok'];?></label>
+            <a href="producto_persona.php?id_persona=<?php echo $id_persona ?>&id_producto=<?php echo $row['id_producto'] ?>&nivel=<?php echo $nivel?>" class="btn btn-primary">Comprar</a></button>
             <input type="text" id="id_producto" value="<?php echo $row['id_producto']; ?>" hidden>
           </div>
        </div>
@@ -109,21 +118,20 @@
   <input id="compra_btn_producto" type="submit" value="enviar" >
 </form>
 </div>
-<a id="btn_comprar" class="btn-flotante">Realizar pedido</a>
 
 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); ">
   © 2022 Copyright:
-  <a class="text-reset fw-bold" href="inicio.html">DonLuchoLicor.com</a>
+  <a class="text-reset fw-bold" href="">DonLuchoLicor.com</a>
 </div> -->
 <!-- Copyright -->
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 <footer>
-  <!-- JQuery -->
+  <!-- JQuery 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!--MIS SCRIPTS-->
-      <script src="../js/inicio.js"></script>
+
+      <script src="../js/inicio.js"></script>-->
 </footer>
 </html>

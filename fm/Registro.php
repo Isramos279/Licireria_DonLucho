@@ -3,7 +3,7 @@
   // session_start();
   $id_persona=0;
   if (empty($_POST['nombre'])) {
-    echo "ingrese datos";
+    //echo "ingrese datos";
   }else{
     //datos de la tabla persona
     $nombre=$_POST['nombre'];
@@ -119,15 +119,15 @@
               <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8">
-                  <label for="formGroupExampleInput" class="form-label">Ingrese Nombre</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="nombre">
+                  <label for="formGroupExampleInput" class="form-label">Ingrese su nombre</label>
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="nombre" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8 ">
                   <label for="formGroupExampleInput" class="form-label">Ingrese Apellido</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="apellido">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="apellido" required>
                 </div>
               </div>
 
@@ -135,11 +135,11 @@
                 <div class="col-2"></div>
                 <div class="col-4">
                     <label for="formGroupExampleInput" class="form-label">Ingrese Usuario</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="usuario">
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="usuario" required>
                 </div>
                 <div class="col-4">
                     <label for="formGroupExampleInput" class="form-label">Ingrese Contraseña</label>
-                    <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="contrasenia">
+                    <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="contrasenia" required>
                     <br>
                 </div>
               </div>
@@ -151,15 +151,15 @@
                 <div class="col-2"></div>
                 <div class="col-1 "></div>
                 <div class="col-4">
-                    <label for="formGroupExampleInput" class="form-label">Ingrese numero</label>
-                    <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="nombrecont">
+                    <label for="formGroupExampleInput" class="form-label">Ingrese numero de contacto</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="nombrecont" required>
                 </div>
                 
                 <div class="col-2 ">
                   <label for="formGroupExampleInput" class="form-label">Tipo</label>
                     <label for="formGroupExampleInput" class="form-label"></label>
-                    <select class="form-select" aria-label="Default select example" name="descripcion">
-                    <option selected>Tipo</option>
+                    <select class="form-select" aria-label="Default select example" name="descripcion" required>
+                    <option selected></option>
                     <option value="1">Celular</option>
                     <option value="2">Teléfono</option>
                   </select>

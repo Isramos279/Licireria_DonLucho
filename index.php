@@ -13,27 +13,31 @@ if (empty($_POST['usuario'])) {
   $usuario=$_POST['usuario'];
   $contrasenia=$_POST['contrasenia'];
   $_SESSION['usuario']=$usuario;
-
-  // Consultar ultimo tipo ingresado
+    // Consultar ultimo tipo ingresado
   $query = "SELECT * FROM  persona  WHERE usuario='$usuario' and contrasenia ='$contrasenia'";
   //correr qu
   $resultado = $conexion->query($query);
-  while ($row = $resultado->fetch_assoc()) 
+  $filas=mysqli_fetch_row($resultado);
+  if($filas){
+    $nivel =$filas[5];
+    $id_persona=$filas[0];
+  }
+  /*while ($row = $resultado->fetch_assoc()) 
   {
       $id_persona=$row['id_persona'];
       $usuario=$row['usuario'];
-  } 
+      $nivel=$row['nivel'];
+  } */
   $var =1;
 
   //echo "$var";
-
-  if ($id_persona) {
-    header("location: fm/inicio.php?id=".$id_persona."&"."u=".$usuario);
-  }else{
+if($filas){
+    header("location: fm/inicio.php?id_persona=".$id_persona."&"."usuario=".$usuario."&"."nivel=".$nivel);
+}else
+{
     echo "<script type='text/javascript' >alert('datos incorrec');</script>";
-
-
   }
+  
   //echo "$resultado";
 }
 ?>
@@ -109,11 +113,11 @@ if (empty($_POST['usuario'])) {
         
                 <div class="col mb-3">
                   <label for="formGroupExampleInput" class="form-label">Usuario</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="usuario">
+                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="usuario" required>
                 </div>
                 <div class="col mb-3">
                   <label for="formGroupExampleInput" class="form-label">Cntraseña</label>
-                  <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="contrasenia">
+                  <input type="password" class="form-control" id="formGroupExampleInput" placeholder="" name="contrasenia" required>
                 </div>
                 <br>
         
